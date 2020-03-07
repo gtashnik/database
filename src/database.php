@@ -1,6 +1,6 @@
 <?php
 
-namespace gtashnik\database; // setting namespace
+namespace Gtashnik\Database; // setting namespace
 
 class Database {
     
