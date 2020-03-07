@@ -14,7 +14,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "namespace": "src/"
+            "Gtashnik//Database\\": "src/"
         }
     },
     "minimum-stability": "dev"
