@@ -1,0 +1,21 @@
+{
+    "name": "gtashnik/database",
+    "description": "testing database app",
+    "type": "library",
+    "require": {
+        "php": "^7.0"
+    },
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "gtashnik",
+            "email": "dmitry.safarov@gmail.com"
+        }
+    ],
+    "autoloader": {
+        "psr-4": {
+            "gtashnik\\database\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
