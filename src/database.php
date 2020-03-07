@@ -4,73 +4,54 @@ namespace gtashnik\database;// setting namespace
 
 class Database {
     
-    public function theBase() {
+public function theBase() {
         
 $servername = "localhost";
 $username = "root";
 $password = "";
 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully";
-    }
-catch(PDOException $e)
-    {
-    echo "Connection failed: " . $e->getMessage();
-    }
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-// создаем базу
-$sql = "CREATE DATABASE myDB";
+// Create database
+$sql = "CREATE DATABASE db";
 if ($conn->query($sql) === TRUE) {
+   // echo "Database created successfully";
 } else {
-    echo "Ошибка при создании базы данных: " . $conn->error;
+    echo "Error creating database: " . $conn->error;
 }
 
-
+$connection = new mysqli($servername, $username, $password, "db");
+if ($connection->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
 // создаем таблицу и записываем данные
-$sql2 = "CREATE TABLE sometext (
-id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-text VARCHAR(256) NOT NULL
-)";
+$sql2 = "CREATE TABLE sometext (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, text VARCHAR(256) NOT NULL)";
 
-if ($conn->query($sql2) === TRUE) {
-   
-} else {
-    echo "Невозможно создать таблицу: " . $conn->error;
-}
+$make_table = mysqli_query($connection, $sql2);
 
-$message = 'Hello from Safarov';
-$sql3 = "INSERT INTO sometext (text) VALUES ({'$message'})";
-if ($conn->query($sql3) === TRUE) {
-   
-} else {
-    echo "Невозможно создать таблицу: " . $conn->error;
-}
+$sql3 = "INSERT INTO sometext (text) VALUES ('Hello from Safarov')";
 
-$sql4 = "SELECT text FROM sometext WHERE text = {'$message'}";
-if ($conn->query($sql3) === TRUE) {
-   
-    $result = $conn->query($sql4);
+$insert_text = mysqli_query($connection, $sql3);
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $show_message = $row['text'];
-        echo $show_message;
-    }
-} else {
-    echo "нечего показывать";
-}    
-    
-} else {
-    echo "Невозможно сделать запрос к бд: " . $conn->error;
-}
+$sql4 = "SELECT * FROM sometext WHERE text = 'Hello from Safarov'";
 
-$conn->close(); 
+$select_text = mysqli_query($connection, $sql4);
+
+$row = mysqli_fetch_array($select_text);
+
+$the_text = $row['text'];
+
+return $the_text;
+
+$connection->close(); 
 
     }
   
-theBase();
+
     
 } // конец класса database

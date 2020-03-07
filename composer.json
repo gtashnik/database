@@ -12,7 +12,7 @@
             "email": "dmitry.safarov@gmail.com"
         }
     ],
-    "autoloader": {
+    "autoload": {
         "psr-4": {
             "gtashnik\\database\\": "src/"
         }
